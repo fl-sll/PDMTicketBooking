@@ -1,5 +1,5 @@
 class Booking:
-    def __init__(self,destination:str,tickets:int):
+    def __init__(self,destination:str = "",tickets:int = 0):
         self.__destination = destination
         self.__tickets = tickets
         self.__price = 0
@@ -18,7 +18,17 @@ class Booking:
         else:
             self.__price = 0
             self.__stock = 0
-    
+            
+    def set_destination(self):
+        self.__destination = input("Enter your destination: ")
+        
+    def set_tickets(self):
+        try:
+            tickets = int(input("Enter number of tickets to be order: "))
+        except:
+            print("Please input a number!")
+        self.__tickets = tickets
+                        
     def get_destination(self):
         return self.__destination
     
@@ -29,50 +39,83 @@ class Booking:
         return self.__tickets
     
     def get_stock(self):
-        return self.__stock
+        return self.__stock - self.get_tickets()
     
     def total_cost(self):
         return self.__tickets * self.__price
     
     def __str__(self):
-        print(f"{self.__tickets} tickets to {self.__destination.capitalize()} at {'{:,.2f}'.format(self.__price)} per ticket. Total Cost = {'{:,.2f}'.format(self.total_cost())}") 
+        print(f"{self.get_tickets()} tickets to {self.get_destination()} at {'{:,.2f}'.format(self.get_price())} per ticket successfully ordered.\
+                \nThe total cost for your order = {'{:,.2f}'.format(self.total_cost())}") 
 
 def display_list():
-    print("Destinations".ljust(10), "Price".center(10), "Stocks".rjust(10))
-    print("Cirebon".ljust(10), "50000".center(15), "20".rjust(10))
-    print("Yogyakarta".ljust(10), "100000".center(15), "25".rjust(10))
-    print("Surabaya".ljust(10), "200000".center(15), "30".rjust(10))
+    print("Destinations".ljust(10), "Price".center(15), "Stocks".rjust(8))
+    print("---------------------------------------")
+    print("Cirebon".ljust(10), "50000".center(19), "20".rjust(4))
+    print("Yogyakarta".ljust(10), "100000".center(19), "25".rjust(4))
+    print("Surabaya".ljust(10), "200000".center(19), "30".rjust(4))
 
 def main():
     display_list()
-    destination = input("Enter your destination: ")
-    tickets = int(input("Enter number of tickets: "))
-    d = Booking(destination, tickets)
-    d._PriceList()
-    stocks = d.get_stock()
-    run = True
-    while run:
-        if d.get_price == 0:
-            choice = input("Do you want to cancel (Y/N)? ")
-            if choice == "Y" or "y":
-                run = False
-            elif choice == "N" or "n":
-                destination = input("Please re-enter your destination: ")
-                run = True
-        else:
-            if stocks <= 0:
-                stocks -= tickets
-                print("Tickets ordered is more than stock")
-                choice = input("Do you want to cancel (Y/N)? ")
-                if choice == "Y" or "y":
-                    run = False
-                elif choice == "N" or "n":
-                    tickets = int(input("Please re-enter amount of tickets ordered: "))
-                    run = True
+    user_order = Booking()
+    while True:
+        user_order.set_destination()
+        user_order._PriceList()
+        price = user_order.get_price()
+        stocks = user_order.get_stock()
+        if price == 0:
+            print("Sorry there's no ticket for your destination!")
+            print("---------------------------------------------\n")
+            print("Enter 'Y' to change your destination")
+            print("Enter any other key to cancel")
+            print("---------------------------------------------")
+            user_choice = input("Would you like to change your destination? ")
+            if user_choice.upper() == "Y":
+                continue
             else:
-                stocks -= tickets
-                d.__str__()
-                print(f"Stock of tickets to {d.get_destination().capitalize()} remaining: {stocks}")
-                run = False
+                break
+        else:
+            while True:
+                user_order.set_tickets()
+                tickets = user_order.get_tickets()
+                if tickets <= 0:
+                    print("Sorry the number of ticket can't be negative!")
+                    print("---------------------------------------------\n")
+                    print("Enter 'Y' to change the number of tickets")
+                    print("Enter any other key to cancel")
+                    print("---------------------------------------------")
+                    user_choice = input("Would you like to change the number of tickets to be order? ")
+                    if user_choice.upper() == "Y":
+                        continue
+                    else:
+                        return
+                else:
+                    if stocks <= 0:
+                        print(f"Ticket for your destination is less than {tickets}")
+                        print("---------------------------------------------\n")
+                        print("Enter '1' to change your destination")
+                        print("Enter '2' to change the number of tickets")
+                        print("Enter any other key to cancel")
+                        print("---------------------------------------------")
+                        user_choice = input("Would you like to change the number of tickets to be order? ")
+                        if user_choice == 1:
+                            break
+                        elif user_choice == 2:
+                            continue
+                        else:
+                            return
+                    else:
+                        stocks -= tickets
+                        user_order.__str__()
+                        print(f"Stock of tickets to {user_order.get_destination().capitalize()} remaining: {stocks}")
+                        print("---------------------------------------------\n")
+                        print("Enter 'Y' to order more tickets")
+                        print("Enter any other key to cancel")
+                        print("---------------------------------------------")
+                        user_choice = input("Would you like to order more tickets? ")
+                        if user_choice.upper() == "Y":
+                            break
+                        else:
+                            return
 
 main()
