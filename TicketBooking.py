@@ -6,13 +6,13 @@ class Booking:
         self.__stock = 0
     
     def _PriceList(self):
-        if self.__destination == "Cirebon":
+        if self.__destination == "Cirebon" or self.__destination == "cirebon":
             self.__price = 50000
             self.__stock = 20
-        elif self.__destination == "Yogyakarta":
+        elif self.__destination == "Yogyakarta" or self.__destination == "yogyakarta":
             self.__price = 100000
             self.__stock = 25
-        elif self.__destination == "Surabaya":
+        elif self.__destination == "Surabaya" or self.__destination == "surabaya":
             self.__price = 200000
             self.__stock = 30
         else:
