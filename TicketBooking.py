@@ -65,7 +65,7 @@ def main():
         stocks = user_order.get_stock()
         if price == 0:
             print("Sorry there's no ticket for your destination!")
-            print("---------------------------------------------\n")
+            print("---------------------------------------------")
             print("Enter 'Y' to change your destination")
             print("Enter any other key to cancel")
             print("---------------------------------------------")
@@ -81,7 +81,7 @@ def main():
                 tickets = user_order.get_tickets()
                 if tickets <= 0:
                     print("Sorry the number of ticket can't be negative!")
-                    print("---------------------------------------------\n")
+                    print("---------------------------------------------")
                     print("Enter 'Y' to change the number of tickets")
                     print("Enter any other key to cancel")
                     print("---------------------------------------------")
@@ -94,7 +94,7 @@ def main():
                 else:
                     if stocks <= 0:
                         print(f"Ticket for your destination is less than {tickets}")
-                        print("---------------------------------------------\n")
+                        print("---------------------------------------------")
                         print("Enter '1' to change your destination")
                         print("Enter '2' to change the number of tickets")
                         print("Enter any other key to cancel")
@@ -111,7 +111,7 @@ def main():
                         stocks -= tickets
                         user_order.__str__()
                         print(f"Stock of tickets to {user_order.get_destination().capitalize()} remaining: {stocks}")
-                        print("---------------------------------------------\n")
+                        print("---------------------------------------------")
                         print("Enter 'Y' to order more tickets")
                         print("Enter any other key to cancel")
                         print("---------------------------------------------")
