@@ -73,6 +73,7 @@ def main():
             if user_choice.upper() == "Y":
                 continue
             else:
+                print("Thank you for using our service.")
                 break
         else:
             while True:
@@ -88,6 +89,7 @@ def main():
                     if user_choice.upper() == "Y":
                         continue
                     else:
+                        print("Thank you for using our service")
                         return
                 else:
                     if stocks <= 0:
@@ -103,6 +105,7 @@ def main():
                         elif user_choice == 2:
                             continue
                         else:
+                            print("Thank you for using our service.")
                             return
                     else:
                         stocks -= tickets
@@ -116,6 +119,7 @@ def main():
                         if user_choice.upper() == "Y":
                             break
                         else:
+                            print("Thank you for using our service.")
                             return
 
 main()
